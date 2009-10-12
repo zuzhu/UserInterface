@@ -1,0 +1,12 @@
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\ResolveAssemblyReference.cache
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\UI.Properties.Resources.resources
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\UI.csproj.GenerateResource.Cache
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\UI.exe
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\UI.pdb
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\UI.exe
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\UI.pdb
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\Interp_CSharp.dll
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\Antlr3.Runtime.dll
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\Antlr3.Runtime.xml
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\bin\Debug\Interp_CSharp.pdb
+I:\Course\CSE784_Software_engineering_studio\Proj1\UI\obj\Debug\frmMain.resources
