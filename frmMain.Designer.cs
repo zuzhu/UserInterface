@@ -88,7 +88,8 @@ partial class frmMain
         this.rbtSourceCode.Name = "rbtSourceCode";
         this.rbtSourceCode.Size = new System.Drawing.Size(235, 223);
         this.rbtSourceCode.TabIndex = 0;
-        this.rbtSourceCode.Text = "a=[1,2,3;4,5,6];\nb=[2;4;6];\nc=a*b;\nprint c;\nprint a;\nprint b;";
+        this.rbtSourceCode.Text = "a=[1,2,3|4,5,6];\nb=[2|4|6];\nc=a*b;\nprint c;\nprint a;\nprint b;\nparallel-for (x=0.." +
+            "2) { b[x][0] = a[0][x] + 23; };\nprint b;";
         // 
         // button3
         // 
