@@ -1,4 +1,13 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////
+// frmMain.cs: the WinForm class for SPINA_UI
+// 
+// version: 1.0
+// description: display the UserInterface and render the text on the textbox
+// author: Zutao Zhu (zuzhu@syr.edu)
+// language: C# .Net 3.5
+////////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,8 +18,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 
-    //public delegate void SampleDelegate(string message);
-
 public partial class frmMain : Form
 {
 
@@ -20,13 +27,16 @@ public partial class frmMain : Form
     bool readflag = false;
     bool endflag = false;
 
+    //----< constructor >------------------------------
+
     public frmMain()
     {
         InitializeComponent();
         sb = new StringBuilder();
         sbOutput = new StringBuilder();
-        //readflag = false;
     }
+
+    //----< "Load" button >------------------------------
 
     private void button1_Click(object sender, EventArgs e)
     {
@@ -38,10 +48,11 @@ public partial class frmMain : Form
         openFileDialog.CheckPathExists = true;
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-            //MessageBox.Show(openFileDialog.FileName.ToString());
             ShowSourceCode(openFileDialog.FileName);
         }
     }
+
+    //----< "Save" button >------------------------------
 
     private void button2_Click(object sender, EventArgs e)
     {
@@ -53,6 +64,8 @@ public partial class frmMain : Form
             SaveSourceCode(saveFileDialog.FileName);
         }
     }
+
+    //----< display source code in the textbox >------------------------------
 
     private void ShowSourceCode(string fileName)
     {
@@ -69,6 +82,8 @@ public partial class frmMain : Form
         }
     }
 
+    //----< save source code to a file >------------------------------
+
     private void SaveSourceCode(string fileName)
     {
         using (StreamWriter sw = new StreamWriter(fileName))
@@ -78,12 +93,14 @@ public partial class frmMain : Form
         }
     }
 
+    //----< "Run" button >------------------------------
+
     private void button3_Click(object sender, EventArgs e)
     {
         endflag = false;
         sbOutput.Remove(0, sbOutput.Length);
         richTextBox2.Clear();
-        SampleDelegate d1 = WriteOutput;
+        WriteBufferDelegate d1 = WriteOutput;
         consoleProgram theprogram = new consoleProgram();
         content = rbtSourceCode.Text;
         //content.Replace('\n', ' ');
@@ -91,15 +108,14 @@ public partial class frmMain : Form
         theprogram.setDelegate(d1);
         Thread oThread = new Thread(new ThreadStart(theprogram.VisitLine));
         oThread.Start();
-        //Thread pThread = new Thread(new ThreadStart(ReadFromBuffer));
-        //pThread.Start();
-        //theprogram.VisitLine();
         while (!endflag)
         {
             ReadFromBuffer();
         }
         oThread.Abort();
     }
+
+    //----< producer >------------------------------
 
     private void WriteOutput(string s)
     {
@@ -109,8 +125,7 @@ public partial class frmMain : Form
             {
                 try
                 {
-                    Monitor.Wait(this);   // Wait for the Monitor.Pulse in
-                    // ReadFromCell
+                    Monitor.Wait(this);
                 }
                 catch (SynchronizationLockException e)
                 {
@@ -127,6 +142,8 @@ public partial class frmMain : Form
             Monitor.Pulse(this);
         }
     }
+
+    //----< consumer >------------------------------
 
     private void ReadFromBuffer()
     {
@@ -147,15 +164,12 @@ public partial class frmMain : Form
                     Console.WriteLine(e);
                 }
             }
-            //Console.WriteLine("Consume: {0}", cellContents);
             richTextBox2.AppendText(sbOutput.ToString());
             if (sbOutput.ToString().Equals("END"))
                 endflag = true;
             sbOutput.Remove(0, sbOutput.Length);
-            readflag = false;    // Reset the state flag to say consuming
-            // is done.
-            Monitor.Pulse(this);   // Pulse tells Cell.WriteToCell that
-            // Cell.ReadFromCell is done.
+            readflag = false;    // Reset the state flag to say consuming is done.
+            Monitor.Pulse(this);   
         }
     }
 
